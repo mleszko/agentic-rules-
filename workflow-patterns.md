@@ -38,6 +38,7 @@ This catalog maps operational design patterns for AI systems, multi-agent framew
 - **Precedence:** Critical
 - **Context Scope:** Multi-agent coordination, chat state, runtime step tracking.
 - **Description:** Agent state must never be mutated in-place. Every state transition must output a new, frozen instance of the state container, appended to an append-only transaction ledger.
+
 - **Implementation Blueprint:**
 ```python
 from pydantic import BaseModel, Field
@@ -56,7 +57,7 @@ def transition_state(current: AgentState, action_result: str, next_tool: str | N
         memory_buffer=current.memory_buffer + (action_result,),
         active_tool=next_tool
     )
-
+```
 
 #### [WP-A002] Context Window Decoupling
 Precedence: High
