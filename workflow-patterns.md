@@ -58,12 +58,13 @@ def transition_state(current: AgentState, action_result: str, next_tool: str | N
     )
 
 
-[WP-A002] Context Window Decoupling
+#### [WP-A002] Context Window Decoupling
 Precedence: High
 Context Scope: RAG pipelining, long-context ingestion.
 Description: Ban raw text passing directly into prompts. Extract token-heavy structural data into semantic chunks or indexed vector IDs, passing only metadata summaries to primary agent reasoning loops.
 Domain B: Tool Execution & MCP Integration
-[WP-B001] Idempotent Tool Execution
+
+#### [WP-B001] Idempotent Tool Execution
 Precedence: Critical
 Context Scope: File I/O, Database writes, API calls via Model Context Protocol (MCP).
 Description: Every agent tool execution modifying system state must inject a unique idempotency_key (UUIDv4) into the transaction boundary to completely block duplicate execution loops.
@@ -84,8 +85,7 @@ async def execute_system_change(tool_data: dict, token: uuid.UUID, storage: Idem
     # Process tool logic down here...
     return {"status": "success"}
 
-
-[WP-B002] Multi-Agent Circuit Breaker
+#### [WP-B002] Multi-Agent Circuit Breaker
 Precedence: High
 Context Scope: Autonomous execution loops.
 Description: Stop runaway loops. Tool calls executing sequentially without changing the system state delta must force-trip a circuit breaker after 5 consecutive cycles, throwing a hard operational refusal.
