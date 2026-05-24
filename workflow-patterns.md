@@ -70,7 +70,7 @@ Precedence: Critical
 Context Scope: File I/O, Database writes, API calls via Model Context Protocol (MCP).
 Description: Every agent tool execution modifying system state must inject a unique idempotency_key (UUIDv4) into the transaction boundary to completely block duplicate execution loops.
 Implementation Blueprint:
-
+```
 import uuid
 from typing import Protocol
 
@@ -85,7 +85,7 @@ async def execute_system_change(tool_data: dict, token: uuid.UUID, storage: Idem
     storage.mark_seen(token)
     # Process tool logic down here...
     return {"status": "success"}
-
+```
 #### [WP-B002] Multi-Agent Circuit Breaker
 Precedence: High
 Context Scope: Autonomous execution loops.
